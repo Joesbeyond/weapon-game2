@@ -12,7 +12,7 @@ Fighting.prototype.fight = function () {
     var result = '战斗开始！\n';
     while (1) {
 
-        var soldierAttack = this.soldier.attack + this.soldier.weapon.attack;
+        var soldierAttack = this.soldier.attack + this.soldier.getWeaponAttack();
         var ordinaryAttack = this.ordinary.attack - this.soldier.armor.defense;
         var soldierDeadAttack = 3*soldierAttack;
         //this.soldier.hp -= ordinaryAttack;
@@ -26,7 +26,7 @@ Fighting.prototype.fight = function () {
             break;
         }
 
-        if(this.soldier.weapon.Effect.name === '毒性' || this.soldier.weapon.Effect.name === '火焰') {
+        if(this.soldier.getWeaponEffectName() === '毒性' || this.soldier.getWeaponEffectName() === '火焰') {
 
         this.soldier.hp -= ordinaryAttack;
         this.ordinary.hp -= soldierAttack;  
@@ -34,14 +34,14 @@ Fighting.prototype.fight = function () {
        // console.log(); 
         var odd = _.random(0, 100);
         var excuteTimes = 0;
-        if (odd < this.soldier.weapon.Effect.odds) {
-            result += this.soldier.profession + this.soldier.name + '用' + this.soldier.weapon.name +
+        if (odd < this.soldier.getWeaponEffectOdds()) {
+            result += this.soldier.profession + this.soldier.name + '用' + this.soldier.getWeaponName() +
                     '攻击了' + this.ordinary.profession + this.ordinary.name + ',' + this.ordinary.name + '受到了' +
-                    soldierAttack + '点伤害,' + this.ordinary.name + this.soldier.weapon.Effect.behaviour +'了,' + this.ordinary.name + '剩余生命：'+
+                    soldierAttack + '点伤害,' + this.ordinary.name + this.soldier.getWeaponEffectBehaviour() +'了,' + this.ordinary.name + '剩余生命：'+
                     this.ordinary.hp + '\n' +
-                    this.ordinary.name + '受到' + this.soldier.weapon.Effect.attack +
-                    '点'+this.soldier.weapon.Effect.name+'伤害,' + this.ordinary.name + '剩余生命：' + (this.ordinary.hp - this.soldier.weapon.Effect.attack) +'\n';
-                    var delayTimes = this.soldier.weapon.Effect.delay;
+                    this.ordinary.name + '受到' + this.soldier.getWeaponEffectAttack() +
+                    '点'+this.soldier.getWeaponEffectName()+'伤害,' + this.ordinary.name + '剩余生命：' + (this.ordinary.hp - this.soldier.weapon.Effect.attack) +'\n';
+                    var delayTimes = this.soldier.getWeaponEffectDelay();
                     excuteTimes++ ;
                     console.log(excuteTimes++ );
                    // console.log(delayTimes);
@@ -137,38 +137,6 @@ Fighting.prototype.fight = function () {
                 
             }
         };
-
-/*
-        if(this.soldier.weapon.Effect.name === '眩晕') {
-
-            this.ordinary.hp -= soldierAttack; 
-            this.soldier.weapon.Effect.delay -= 1;
-            var odd = _.random(0, 100);
-          //  var swimTimes = 0;
-            //if (odd < this.soldier.weapon.Effect.odds) {
-            result += this.soldier.profession + this.soldier.name + '用' + this.soldier.weapon.name +
-                    '攻击了' + this.ordinary.profession + this.ordinary.name + ',' + this.ordinary.name + '受到了' +
-                    soldierAttack + '点伤害,' + this.ordinary.name + this.soldier.weapon.Effect.behaviour +'了,' + this.ordinary.name + '剩余生命：'+
-                    this.ordinary.hp + '\n'
-               //     swimTimes++ ;
-                //    console.log('0000');
-          //      }; 
-           // this.soldier.weapon.Effect.delay += swimTimes;
-            if(this.soldier.weapon.Effect.delay >= 0) {
-                result += this.ordinary.name + '晕倒了，无法攻击,' + this.soldier.weapon.Effect.name + '还剩：' + this.soldier.weapon.Effect.delay + '轮\n';
-            }else {
-                if (this.ordinary.hp <= 0) {
-                    result += this.soldier.profession + this.soldier.name + '使用最后一击，把' + this.ordinary.name + '打死了';
-                    break;
-                }
-                this.soldier.hp -= ordinaryAttack;
-                result += this.ordinary.profession + this.ordinary.name + '攻击了' + this.soldier.profession + this.soldier.name +
-                    ',攻击了' + ordinaryAttack + '点伤害,' + this.soldier.name + '的' + this.soldier.armor.name +
-                    '抵挡了' + this.soldier.armor.defense + '点伤害' + this.soldier.name + '还剩' + this.soldier.hp + '点血' + '\n';
-            
-            } 
-        };*/
-
 
         if(this.soldier.weapon.Effect.name === '利剑') {
             result += this.soldier.profession + this.soldier.name + '用' + this.soldier.weapon.name +

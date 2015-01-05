@@ -11,14 +11,11 @@ function Weapon(name, attack, Effect) {
 
 /*Weapon.all = function() {
 	return [
-		new Weapon('优质毒剑', 3, effect1);
-		new Weapon('火焰剑', 3, effect);
-		
-		new Weapon('寒冰剑', 3, effect);
-		
-		new Weapon('晕锤', 3, effect2);
-		
-		new Weapon('利剑', 3, effect);
+		new Weapon('优质毒剑', 3, effect[i]),
+		new Weapon('火焰剑', 3, effect),
+		new Weapon('寒冰剑', 3, effect),
+		new Weapon('晕锤', 3, effect),
+		new Weapon('利剑', 3, effect)
 	];
 }*/
 	
