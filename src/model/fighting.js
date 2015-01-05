@@ -5,6 +5,7 @@ var _ = require('lodash');
 function Fighting(ordinary, soldier) {
     this.ordinary = ordinary;
     this.soldier = soldier;
+    this.swimTimes = 0;
 }
 
 Fighting.prototype.fight = function () {
@@ -88,6 +89,56 @@ Fighting.prototype.fight = function () {
             } 
         };
 
+
+        if(this.soldier.weapon.Effect.name === '眩晕') {
+
+            this.ordinary.hp -= soldierAttack; 
+            this.soldier.weapon.Effect.delay -= 1;
+            var odd = _.random(0, 100);
+           
+            if (odd < this.soldier.weapon.Effect.odds) {
+
+                result += this.soldier.profession + this.soldier.name + '用' + this.soldier.weapon.name +
+                    '攻击了' + this.ordinary.profession + this.ordinary.name + ',' + this.ordinary.name + '受到了' +
+                    soldierAttack + '点伤害,' + this.ordinary.name + this.soldier.weapon.Effect.behaviour +'了,' + this.ordinary.name + '剩余生命：'+
+                    this.ordinary.hp + '\n'
+                    this.swimTimes++ ;
+
+                    if (this.swimTimes >= 0) {
+                     result += this.ordinary.name + '晕倒了，无法攻击,' + this.soldier.weapon.Effect.name + '还剩：' + this.swimTimes + '轮\n';
+                    }else {
+
+                        if (this.ordinary.hp <= 0) {
+                            result += this.soldier.profession + this.soldier.name + '使用最后一击，把' + this.ordinary.name + '打死了';
+                                break;
+                        }
+                        this.soldier.hp -= ordinaryAttack;
+                        result += this.ordinary.profession + this.ordinary.name + '攻击了' + this.soldier.profession + this.soldier.name +
+                            ',攻击了' + ordinaryAttack + '点伤害,' + this.soldier.name + '的' + this.soldier.armor.name +
+                            '抵挡了' + this.soldier.armor.defense + '点伤害' + this.soldier.name + '还剩' + this.soldier.hp + '点血' + '\n';
+                    } 
+            }else {
+                result += this.soldier.name + '进攻\n';
+                if(this.swimTimes > 0){
+                    this.swimTimes--;
+                    result += this.ordinary.name + '晕倒了，无法攻击,' + this.soldier.weapon.Effect.name + '还剩：' + this.swimTimes + '轮\n';
+    
+                }else{
+                    this.soldier.hp -= ordinaryAttack;
+                result += this.ordinary.profession + this.ordinary.name + '攻击了' + this.soldier.profession + this.soldier.name +
+                    ',攻击了' + ordinaryAttack + '点伤害,' + this.soldier.name + '的' + this.soldier.armor.name +
+                    '抵挡了' + this.soldier.armor.defense + '点伤害' + this.soldier.name + '还剩' + this.soldier.hp + '点血' + '\n';
+
+                }
+                if (this.ordinary.hp <= 0) {
+                    result += this.soldier.profession + this.soldier.name + '把' + this.ordinary.name + '打死了';
+                    break;
+                }
+                
+            }
+        };
+
+/*
         if(this.soldier.weapon.Effect.name === '眩晕') {
 
             this.ordinary.hp -= soldierAttack; 
@@ -116,7 +167,7 @@ Fighting.prototype.fight = function () {
                     '抵挡了' + this.soldier.armor.defense + '点伤害' + this.soldier.name + '还剩' + this.soldier.hp + '点血' + '\n';
             
             } 
-        };
+        };*/
 
 
         if(this.soldier.weapon.Effect.name === '利剑') {
