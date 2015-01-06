@@ -1,6 +1,8 @@
 /**
  * Created by joes on 15-1-2.
  */
+ var PoisonFireEffect = require('./poison-fire-effect');
+
 var _ = require('lodash');
 function Fighting(ordinary, soldier) {
     this.ordinary = ordinary;
@@ -8,7 +10,7 @@ function Fighting(ordinary, soldier) {
     this.swimTimes = 0;
 }
 
-Fighting.prototype.fight = function () {
+Fighting.prototype.fight = function() {
     var result = '战斗开始！\n';
     while (1) {
 
@@ -17,21 +19,23 @@ Fighting.prototype.fight = function () {
         var soldierDeadAttack = 3*soldierAttack;
         //this.soldier.hp -= ordinaryAttack;
         //this.ordinary.hp -= soldierAttack;
-        if (this.ordinary.hp <= 0) {
-            result += this.soldier.profession + this.soldier.name + '使用最后一击，把' + this.ordinary.name + '打死了';
+        if (this.ordinary.isDead()) {
+            result += this.soldier.profession + this.soldier.name + '把' + this.ordinary.name + '打死了';
             break;
         }
-        if (this.soldier.hp <= 0) {
-            result += this.ordinary.profession + this.ordinary.name + '使用最后一击，把' + this.soldier.name + '打死了';
+        if (this.soldier.isDead()) {
+            result += this.ordinary.profession + this.ordinary.name + '把' + this.soldier.name + '打死了';
             break;
         }
 
         if(this.soldier.getWeaponEffectName() === '毒性' || this.soldier.getWeaponEffectName() === '火焰') {
 
-        this.soldier.hp -= ordinaryAttack;
+            result += this.soldier.state.PoisonFireEffect.getPoisonFireEffect(this.ordinary, this.soldier, ordinaryAttack, soldierAttack);
+           
+
+        /*this.soldier.hp -= ordinaryAttack;
         this.ordinary.hp -= soldierAttack;  
         delayTimes-- ; 
-       // console.log(); 
         var odd = _.random(0, 100);
         var excuteTimes = 0;
         if (odd < this.soldier.getWeaponEffectOdds()) {
@@ -64,7 +68,7 @@ Fighting.prototype.fight = function () {
             result += this.ordinary.profession + this.ordinary.name + '攻击了' + this.soldier.profession + this.soldier.name +
                     ',攻击了' + ordinaryAttack + '点伤害,' + this.soldier.name + '的' + this.soldier.armor.name +
                     '抵挡了' + this.soldier.armor.defense + '点伤害' + this.soldier.name + '还剩' + this.soldier.hp + '点血' + '\n';
-
+*/
 
         };
             

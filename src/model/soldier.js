@@ -1,8 +1,9 @@
 var Person = require('./person');
-function Soldier(profession, name, hp, attack, weapon, armor) {
-    Person.call(this, profession, name, hp, attack, weapon, armor);
+function Soldier(profession, name, hp, attack, weapon, armor, state) {
+    Person.call(this, profession, name, hp, attack, weapon, armor, state);
     this.weapon = weapon;
     this.armor = armor;
+    this.state = state;
 }
 
 Soldier.prototype = Object.create(Person.prototype);
